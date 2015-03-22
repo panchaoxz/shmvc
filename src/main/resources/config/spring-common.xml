@@ -18,9 +18,9 @@
      <!-- 引入其他配置文件，可以为多个 -->
     <import resource="classpath*:config/spring/spring-user.xml"/>
 	
-	
 	<!-- enable autowire -->
 	<context:annotation-config />
+	<context:property-placeholder location="classpath:/config/hibernate/jdbc.properties"/> 
 	
 	<tx:advice id="txAdvice" transaction-manager="transactionManager">
         <tx:attributes>
@@ -34,4 +34,5 @@
             <tx:method name="*" read-only="true" />
         </tx:attributes>
     </tx:advice>
+    
  </beans>  

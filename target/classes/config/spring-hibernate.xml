@@ -10,18 +10,44 @@
       http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
 	
 	<!-- 配置数据源 -->
-	<bean id="dataSource"
-		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
-		<property name="url" value="jdbc:mysql://127.0.0.1/springmvc" />
-		<property name="username" value="root" />
-		<property name="password" value="root" />
+<!-- 	<bean id="dataSource" -->
+<!-- 		class="org.springframework.jdbc.datasource.DriverManagerDataSource"> -->
+<!-- 		<property name="driverClassName" value="com.mysql.jdbc.Driver" /> -->
+<!-- 		<property name="url" value="jdbc:mysql://127.0.0.1/springmvc" /> -->
+<!-- 		<property name="username" value="root" /> -->
+<!-- 		<property name="password" value="root" /> -->
+<!-- 	</bean> -->
+	
+	<bean id="c3p0" class="com.mchange.v2.c3p0.ComboPooledDataSource"
+		destroy-method="close">
+		<property name="acquireIncrement" value="${c3p0.acquireIncrement}" />
+		<property name="acquireRetryAttempts" value="${c3p0.acquireRetryAttempts}" />
+		<property name="acquireRetryDelay" value="${c3p0.acquireRetryDelay}" />
+		<property name="autoCommitOnClose" value="${c3p0.autoCommitOnClose}" />
+<!-- 		<property name="automaticTestTable" value="${c3p0.automaticTestTable}" /> -->
+		<property name="breakAfterAcquireFailure" value="${c3p0.breakAfterAcquireFailure}" />
+<!-- 		<property name="checkoutTimeout" value="${c3p0.checkoutTimeout}" /> -->
+		<property name="idleConnectionTestPeriod" value="${c3p0.idleConnectionTestPeriod}" />
+		<property name="initialPoolSize" value="${c3p0.initialPoolSize}" />
+		<property name="minPoolSize" value="${c3p0.minPoolSize}" />
+		<property name="maxPoolSize" value="${c3p0.maxPoolSize}" />
+		<property name="maxIdleTime" value="${c3p0.maxIdleTime}" />
+		<property name="maxStatements" value="${c3p0.maxStatements}" />
+		<property name="maxStatementsPerConnection" value="${c3p0.maxStatementsPerConnection}" />
+		<property name="numHelperThreads" value="${c3p0.numHelperThreads}" />
+		<property name="testConnectionOnCheckout" value="${c3p0.testConnectionOnCheckout}" />
+	</bean>
+	<bean id="mysqlDataSource" parent="c3p0">
+		<property name="driverClass" value="${mysql.jdbc.driver}" />
+		<property name="jdbcUrl" value="${mysql.jdbc.url}" />
+		<property name="user" value="${mysql.jdbc.username}" />
+		<property name="password" value="${mysql.jdbc.password}" />
 	</bean>
 
 	<!--  配置hibernate SessionFactory-->
 	<bean id="sessionFactory"
 		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
-		<property name="dataSource" ref="dataSource" />
+		<property name="dataSource" ref="mysqlDataSource" />
 		<property name="hibernateProperties">
 			<props>
 				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>

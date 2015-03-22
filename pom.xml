@@ -45,6 +45,17 @@
 		<artifactId>dom4j</artifactId>
 		<version>1.6.1</version>
 	</dependency>
+	<!-- 	数据库连接池 -->
+<!-- 	<dependency> -->
+<!-- 		<groupId>commons-pool</groupId> -->
+<!-- 		<artifactId>commons-pool</artifactId> -->
+<!-- 		<version>1.6</version> -->
+<!-- 	</dependency> -->
+	<dependency>
+		<groupId>com.mchange</groupId>
+		<artifactId>c3p0</artifactId>
+		<version>0.9.5</version>
+	</dependency>
     <!-- start Mysql -->
     <dependency>
         <groupId>mysql</groupId>
